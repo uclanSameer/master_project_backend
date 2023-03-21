@@ -22,6 +22,7 @@ import com.stripe.model.StripeObject;
 import com.stripe.model.Transfer;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
+import com.stripe.param.TransferCreateParams;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -141,10 +142,12 @@ public class StripeWebhookServiceImpl implements StripeWebhookService {
     public void payToAccount(String accountId, BigDecimal amount) throws StripeException {
         log.info("Paying to account: {} amount: {}", accountId, amount);
         Stripe.apiKey = secretKey;
-        Map<String, Object> params = Map.of(
-                "amount", amount,
-                "currency", "gbp",
-                "destination", accountId);
+        TransferCreateParams params =
+                TransferCreateParams.builder()
+                        .setAmount(amount.multiply(BigDecimal.valueOf(100)).longValue())
+                        .setCurrency("gbp")
+                        .setDestination(accountId)
+                        .build();
         Transfer.create(params);
     }
 

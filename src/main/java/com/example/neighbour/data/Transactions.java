@@ -18,6 +18,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "transactions")
 public class Transactions {
 
     @Id
