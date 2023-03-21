@@ -1,5 +1,6 @@
 package com.example.neighbour.service.impl;
 
+import com.example.neighbour.data.Business;
 import com.example.neighbour.data.MenuItem;
 import com.example.neighbour.data.User;
 import com.example.neighbour.data.cart.Cart;
@@ -197,32 +198,38 @@ public class CartServiceImpl implements CartService {
                 .orElseThrow(() -> new RuntimeException(CART_NOT_FOUND));
     }
 
+    public Cart getCartByCartId(int cartId) {
+        return cartRepository.findById(cartId)
+                .orElseThrow(() -> new RuntimeException(CART_NOT_FOUND));
+    }
+
+
     @Override
-    public Map<String, BigDecimal> getAmountToPayToBusiness(String cartId) {
+    public Map<Business, BigDecimal> getAmountToPayToBusiness(String cartId) {
         log.info("Getting amount to pay to business for cart: {}", cartId);
 
         List<CartItem> cartItems = cartItemRepository.findAllByCartId(Integer.parseInt(cartId));
 
-        Map<String, BigDecimal> amountToPayToBusiness = new HashMap<>();
+        Map<Business, BigDecimal> amountToPayToBusiness = new HashMap<>();
         cartItems
                 .forEach(cartItem -> {
                     MenuItem menuItem = cartItem.getItem();
                     Integer quantity = cartItem.getQuantity();
-                    String businessId = menuItem.getBusiness().getAccountId();
+                    Business business = menuItem.getBusiness();
+                    String businessId = business.getAccountId();
 
                     BigDecimal price = menuItem.getPrice().multiply(new BigDecimal(quantity));
 
                     if (amountToPayToBusiness.containsKey(businessId)) {
                         BigDecimal amount = amountToPayToBusiness.get(businessId);
-                        amountToPayToBusiness.put(businessId, amount.add(price));
+                        amountToPayToBusiness.put(business, amount.add(price));
                     } else {
-                        amountToPayToBusiness.put(businessId, price);
+                        amountToPayToBusiness.put(business, price);
                     }
                 });
 
         return amountToPayToBusiness;
     }
-
 
 
     @NotNull

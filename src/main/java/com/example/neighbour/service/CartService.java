@@ -1,5 +1,6 @@
 package com.example.neighbour.service;
 
+import com.example.neighbour.data.Business;
 import com.example.neighbour.data.User;
 import com.example.neighbour.data.cart.Cart;
 import com.example.neighbour.dto.ResponseDto;
@@ -78,13 +79,15 @@ public interface CartService {
      */
     Cart getCurrentCart();
 
+    Cart getCartByCartId(int cartId);
+
 
     /**
      * Gets the total amount to be paid by the user for the business
      *
      * @return - total amount
      */
-    Map<String, BigDecimal> getAmountToPayToBusiness(String cartId);
+    Map<Business, BigDecimal> getAmountToPayToBusiness(String cartId);
 
 
 }

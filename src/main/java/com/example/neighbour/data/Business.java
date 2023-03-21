@@ -1,10 +1,12 @@
 package com.example.neighbour.data;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Entity
 @Table(name = "business")
+@EqualsAndHashCode
 public class Business {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
