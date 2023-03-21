@@ -1,0 +1,57 @@
+import org.graalvm.buildtools.gradle.dsl.NativeImageOptions
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.3'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.graalvm.buildtools.native' version '0.9.18'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '19'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+graalvmNative {
+    binaries.configureEach {
+        resources.autodetect()
+    }
+    toolchainDetection = false
+}
+
+
+repositories {
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security:3.0.1'
+    implementation group: 'com.stripe', name: 'stripe-java', version: '22.10.0'
+    implementation 'com.mysql:mysql-connector-j:8.0.31'
+    implementation 'co.elastic.clients:elasticsearch-java:7.17.8'
+    compileOnly 'org.projectlombok:lombok'
+    implementation 'io.springfox:springfox-swagger-ui:2.0.2'
+    implementation 'io.jsonwebtoken:jjwt:0.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7.1'
+    implementation 'javax.xml.bind:jaxb-api:2.2.4'
+    implementation platform('software.amazon.awssdk:bom-internal:2.19.17')
+    implementation 'software.amazon.awssdk:s3:2.19.17'
+    implementation 'org.jetbrains:annotations:23.1.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
