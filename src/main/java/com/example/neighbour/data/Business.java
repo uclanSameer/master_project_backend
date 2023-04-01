@@ -2,7 +2,6 @@ package com.example.neighbour.data;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 @Entity
 @Table(name = "business")
@@ -17,7 +16,6 @@ public class Business {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Getter
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_details_id")
     private UserDetail businessInfo;

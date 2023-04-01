@@ -26,21 +26,21 @@ public class BusinessServiceImpl implements BusinessService {
     private final StripeService stripeService;
 
     @Override
-    public ResponseDto<String> addBusiness(
+    public String addBusiness(
             Business business) {
         UserDetail userDetail = business.getBusinessInfo();
         User user = business.getUser();
         userDetail.setImageUrl(UserUtils.getProfileImageKey(business.getUser()));
 
-        EsBusinessDto esBusinessDto = getBusinessDtoForES(business, userDetail);
 
         StripeAccountResponse stripeAccountResponse = stripeService.registerBusinessAccount(user.getEmail());
         business.setAccountId(stripeAccountResponse.accountId());
         Business savedBusiness = businessRepository.save(business);
+        EsBusinessDto esBusinessDto = getBusinessDtoForES(savedBusiness, userDetail);
         esService.addDocument(esBusinessDto, "seller", savedBusiness.getId().toString());
 
         log.debug("BUSINESS with email {} added successfully", esBusinessDto.email());
-        return ResponseDto.success(stripeAccountResponse.url(), "Business added successfully");
+        return stripeAccountResponse.url();
     }
 
     @Override

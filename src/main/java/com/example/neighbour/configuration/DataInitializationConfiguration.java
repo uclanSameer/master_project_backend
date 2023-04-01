@@ -54,9 +54,8 @@ public class DataInitializationConfiguration {
                 .password("admin1234")
                 .userDetail(userDetailDto)
                 .build();
-        userService.registerUser(userDto);
+        userService.registerUserWithRole(userDto, Role.ADMIN);
 
-        userService.updateRole(email, Role.ADMIN);
         log.info("Admin user created");
     }
 }

@@ -10,7 +10,7 @@ import com.example.neighbour.repositories.MenuRepository;
 import com.example.neighbour.service.BusinessService;
 import com.example.neighbour.service.ElasticSearchService;
 import com.example.neighbour.service.MenuService;
-import com.example.neighbour.service.S3Service;
+import com.example.neighbour.service.aws.S3Service;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -4,13 +4,11 @@ import com.example.neighbour.dto.JwtResponseDto;
 import com.example.neighbour.dto.ResponseDto;
 import com.example.neighbour.dto.UserDto;
 import com.example.neighbour.service.UserService;
+import com.example.neighbour.service.user.VerificationService;
 import com.example.neighbour.utils.ApiConstants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -19,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+
+    private final VerificationService verificationService;
 
     @PostMapping("/register")
     public ResponseDto<UserDto> registerUser(@RequestBody UserDto userDto) {
@@ -30,6 +30,13 @@ public class UserController {
     public ResponseDto<String> registerBusinessUser(@RequestBody UserDto userDto) {
         log.info("Registering business user: {}", userDto.getEmail());
         return userService.registerBusiness(userDto);
+    }
+
+    @GetMapping("/verify/{token}")
+    public ResponseDto<String> verifyEmail(@PathVariable String token) {
+        log.info("Verifying email with token: {}", token);
+        verificationService.verifyEmail(token);
+        return ResponseDto.success(null, "Email verified successfully");
     }
 
 

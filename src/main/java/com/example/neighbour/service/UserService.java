@@ -40,16 +40,8 @@ public interface UserService extends UserDetailsService {
      *
      * @param email - email of the user
      * @param role  - role to be updated
-     * @return - updated user
      */
-    User updateRole(String email, Role role);
-
-    /**
-     * Gets the profile of the user
-     *
-     * @return - user dto
-     */
-    ResponseDto<UserDto> getProfile();
+    void updateRole(String email, Role role);
 
     /**
      * Updates the profile of the user
@@ -60,14 +52,6 @@ public interface UserService extends UserDetailsService {
     ResponseDto<String> registerBusiness(UserDto userDto);
 
     /**
-     * Updates the profile picture of the user
-     *
-     * @param url
-     * @return
-     */
-    ResponseDto<String> uploadProfilePicture(String url);
-
-    /**
      * Checks if any user is present in the database
      *
      * @return - true if no users are present
@@ -75,7 +59,6 @@ public interface UserService extends UserDetailsService {
     boolean hasNoUser();
 
 
-    void removeAllExceptAdmin();
 
     void updateBusinessAccountAsVerified(String accountId);
 }

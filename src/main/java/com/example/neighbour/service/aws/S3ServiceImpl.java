@@ -1,6 +1,5 @@
-package com.example.neighbour.service.impl;
+package com.example.neighbour.service.aws;
 
-import com.example.neighbour.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,11 +44,11 @@ public class S3ServiceImpl implements S3Service {
                 return null;
             }
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                   .bucket(bucketName)
-                   .key(keyName)
-                   .build();
+                    .bucket(bucketName)
+                    .key(keyName)
+                    .build();
 
-                   GetObjectPresignRequest putObjectPresignRequest = GetObjectPresignRequest
+            GetObjectPresignRequest putObjectPresignRequest = GetObjectPresignRequest
                     .builder()
                     .signatureDuration(Duration.ofMinutes(15))
                     .getObjectRequest(getObjectRequest).build();

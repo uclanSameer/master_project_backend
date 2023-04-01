@@ -1,4 +1,4 @@
-package com.example.neighbour.service;
+package com.example.neighbour.service.aws;
 
 public interface S3Service {
 

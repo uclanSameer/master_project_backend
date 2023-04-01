@@ -4,7 +4,6 @@ import com.example.neighbour.dto.UserDto;
 import com.example.neighbour.enums.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,12 +31,11 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @Setter
     private UserDetail userDetail;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Verification verification;
 
-    @Column(name = "is_verified")
-    private Boolean isVerified;
 
     public User() {
 
@@ -75,20 +73,11 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.isVerified;
-    }
-
-
-    public Integer getId() {
-        return id;
+        return this.verification.getIsVerified();
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public void setEmail(String email) {
@@ -99,24 +88,12 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public UserDetail getUserDetail() {
-        return userDetail;
-    }
-
     public void setUserDetail(UserDetail userDetail) {
         this.userDetail = userDetail;
     }
 
-    public Boolean getVerified() {
-        return isVerified;
-    }
-
-    public void setVerified(Boolean verified) {
-        isVerified = verified;
+    public void setVerification(Verification verification) {
+        this.verification = verification;
     }
 
     public User(UserDto userDto, Role role) {

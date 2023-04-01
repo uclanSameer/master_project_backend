@@ -19,7 +19,7 @@ import com.example.neighbour.repositories.MenuRepository;
 import com.example.neighbour.service.CartService;
 import com.example.neighbour.service.CartTotalService;
 import com.example.neighbour.service.OrderService;
-import com.example.neighbour.service.S3Service;
+import com.example.neighbour.service.aws.S3Service;
 import com.example.neighbour.utils.GeneralStringConstants;
 import com.example.neighbour.utils.UserUtils;
 import jakarta.transaction.Transactional;
