@@ -47,6 +47,8 @@ dependencies {
     implementation 'software.amazon.awssdk:sesv2:2.20.26'
     implementation 'org.jetbrains:annotations:23.1.0'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
+    implementation 'org.thymeleaf:thymeleaf-spring5:3.1.1.RELEASE'
+
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'

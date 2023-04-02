@@ -4,6 +4,7 @@ import com.example.neighbour.configuration.security.permissions.ROLE_BUSINESS;
 import com.example.neighbour.data.MenuItem;
 import com.example.neighbour.data.Business;
 import com.example.neighbour.data.User;
+import com.example.neighbour.dto.EsBusinessDto;
 import com.example.neighbour.dto.MenuItemDto;
 import com.example.neighbour.dto.ResponseDto;
 import com.example.neighbour.repositories.MenuRepository;
@@ -32,6 +33,8 @@ public class MenuServiceImpl implements MenuService {
     private final S3Service s3Service;
     private final ElasticSearchService<MenuItemDto> esService;
 
+    private final ElasticSearchService<EsBusinessDto> esBusinessService;
+
     /**
      * Generates a unique key for the image to be stored in S3
      */
@@ -53,6 +56,7 @@ public class MenuServiceImpl implements MenuService {
             menuItemRepository.save(menuItem);
             MenuItemDto esMenuItem = new MenuItemDto(menuItem);
             esService.addDocument(esMenuItem, "menu", menuItem.getId().toString());
+            esService.addCuisineToSeller(business.getId().toString(), menuItemDto.cuisine());
             return ResponseDto.success(esMenuItem, "Menu item added successfully.");
         } catch (Exception e) {
             log.error("Error while creating menu item", e);

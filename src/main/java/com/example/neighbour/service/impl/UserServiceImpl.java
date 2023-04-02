@@ -89,7 +89,9 @@ public class UserServiceImpl implements UserService {
             profileService.uploadProfilePicture(userDto.getUserDetail().getImageUrl());
         }
 
-        if (role.equals(Role.USER)) verificationService.sendVerificationEmail(user);
+        if (role.equals(Role.USER)) {
+            verificationService.sendUserVerificationEmail(user);
+        }
         log.debug("User with email {} registered successfully", userDto.getEmail());
 
         return savedUser;

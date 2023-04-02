@@ -14,6 +14,7 @@ public class GeneralStringConstants {
     public static final String CART_NOT_FOUND = "Cart not found";
 
     public static final String CART_TOTAL_NOT_FOUND = "Cart total not found";
+    public static final String API_KEY = "apiKey";
 
 
 

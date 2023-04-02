@@ -10,4 +10,13 @@ public interface ElasticSearchService<T> {
      * @param id       - id of the document
      */
     void addDocument(T document, String index, String id);
+
+
+    /**
+     * Adds cuisine to the seller
+     *
+     * @param id      - id of the seller
+     * @param cuisine - cuisine to be added
+     */
+    void addCuisineToSeller(String id, String cuisine);
 }

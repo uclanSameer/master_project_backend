@@ -6,8 +6,10 @@ import com.example.neighbour.dto.myptv.AddressResponse;
 import com.example.neighbour.dto.myptv.Location;
 import com.example.neighbour.exception.ErrorResponseException;
 import com.example.neighbour.service.AddressFinderService;
+import com.example.neighbour.utils.GeneralStringConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -39,10 +41,7 @@ public class AddressFinderServiceImpl implements AddressFinderService {
 
         validatePostCode(postCode);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("apiKey", apiKey);
-
-        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+        HttpEntity<Object> httpEntity = buildHttpHeader();
         String url = MessageFormat.format("{0}?postalCode={1}", apiUrl, postCode);
         ResponseEntity<AddressResponse> responseEntity = restTemplate
                 .exchange(url,
@@ -62,6 +61,14 @@ public class AddressFinderServiceImpl implements AddressFinderService {
         throw new ErrorResponseException(400, "Unable to retrieve address");
     }
 
+    @NotNull
+    private HttpEntity<Object> buildHttpHeader() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(GeneralStringConstants.API_KEY, apiKey);
+
+        return new HttpEntity<>(headers);
+    }
+
     /**
      * Validate post code
      *
@@ -71,6 +78,7 @@ public class AddressFinderServiceImpl implements AddressFinderService {
         if (postCode == null || postCode.isBlank()) {
             throw new ErrorResponseException(400, "Post code cannot be empty");
         }
+        postCode = postCode.toUpperCase();
 
         if (postCode.length() < 5) {
             throw new ErrorResponseException(400, "Post code is too short");

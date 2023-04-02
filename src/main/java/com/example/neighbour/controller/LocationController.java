@@ -26,7 +26,7 @@ public class LocationController {
     public ResponseDto<List<LocationResponse>> getListOfAddress(
             @Param("postCode") String postCode) {
         {
-            log.info("Getting all orders");
+            log.info("Getting all addresses for post code: {}", postCode);
             return addressFinderService.getListOfAddress(postCode);
         }
     }

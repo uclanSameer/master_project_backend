@@ -9,8 +9,15 @@ public interface VerificationService {
      *
      * @param user - user to send email to
      */
-    void sendVerificationEmail(User user);
+    void sendUserVerificationEmail(User user);
 
+
+    /**
+     * Sends verification email to business
+     *
+     * @param user - user to send email to
+     * @param setupUrl - url to set up business
+     */
     void sendVerificationEmailToBusiness(User user, String setupUrl);
 
 
@@ -20,4 +27,13 @@ public interface VerificationService {
      * @param token - verification token
      */
     void verifyEmail(String token);
+
+
+    /**
+     * Creates verification token for user
+     *
+     * @param user - user to create verification token for
+     * @return - verification token
+     */
+    String createVerification(User user);
 }

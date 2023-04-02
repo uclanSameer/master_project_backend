@@ -20,7 +20,6 @@ public class UserDetailDto implements Serializable {
     private final String name;
     private final String phoneNumber;
 
-    @Setter
     private String imageUrl;
 
     private AddressDto address;

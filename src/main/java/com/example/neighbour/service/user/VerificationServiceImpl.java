@@ -25,7 +25,7 @@ public class VerificationServiceImpl implements VerificationService {
     private final EmailService emailService;
 
     @Override
-    public void sendVerificationEmail(User user) {
+    public void sendUserVerificationEmail(User user) {
         Optional<Verification> verification = verificationRepository.findByUser(user);
         if (verification.isPresent() && verification.get().getIsVerified()) {
             log.info("User with email: {} is already verified", user.getEmail());
@@ -39,7 +39,7 @@ public class VerificationServiceImpl implements VerificationService {
             );
             return;
         }
-        String token = saveVerification(user);
+        String token = createVerification(user);
 
         MessageDto messageDto = buildEmailMessage(user, token, null);
 
@@ -50,6 +50,7 @@ public class VerificationServiceImpl implements VerificationService {
 
     @Override
     public void sendVerificationEmailToBusiness(User user, String setupUrl) {
+        createVerification(user);
         MessageDto messageDto = buildEmailMessage(user, null, setupUrl);
 
         emailService.sendEmail(messageDto);
@@ -72,7 +73,7 @@ public class VerificationServiceImpl implements VerificationService {
         log.info("User with email: {} has been verified", verification.getUser().getEmail());
     }
 
-    private String saveVerification(User user) {
+    public String createVerification(User user) {
         Verification verification = new Verification();
         verification.setUser(user);
         String token = createUniqueToken();
