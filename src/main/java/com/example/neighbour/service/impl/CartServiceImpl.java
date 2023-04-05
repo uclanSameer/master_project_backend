@@ -195,12 +195,12 @@ public class CartServiceImpl implements CartService {
     public Cart getCurrentCart() {
         User user = UserUtils.getAuthenticatedUser();
         return cartRepository.findByUserId(user.getId())
-                .orElseThrow(() -> new RuntimeException(CART_NOT_FOUND));
+                .orElse(createNewCart(user));
     }
 
     public Cart getCartByCartId(int cartId) {
         return cartRepository.findById(cartId)
-                .orElseThrow(() -> new RuntimeException(CART_NOT_FOUND));
+                .orElse(createNewCart(UserUtils.getAuthenticatedUser()));
     }
 
 
