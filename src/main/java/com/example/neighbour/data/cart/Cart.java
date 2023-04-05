@@ -13,7 +13,7 @@ public class Cart {
     @Column(name = "cart_id", nullable = false)
     private Integer id;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", unique = true)
     private User user;
 
