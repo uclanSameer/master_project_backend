@@ -13,6 +13,7 @@ import com.example.neighbour.enums.Role;
 import com.example.neighbour.repositories.UserDetailRepository;
 import com.example.neighbour.repositories.UserRepository;
 import com.example.neighbour.service.BusinessService;
+import com.example.neighbour.service.CartService;
 import com.example.neighbour.service.UserService;
 import com.example.neighbour.service.user.AddressService;
 import com.example.neighbour.service.user.ProfileService;
@@ -43,6 +44,7 @@ public class UserServiceImpl implements UserService {
     private final ProfileService profileService;
     private final BusinessService businessService;
 
+    private final CartService cartService;
     private final VerificationService verificationService;
 
     public ResponseDto<UserDto> registerUser(UserDto userDto) {
@@ -53,6 +55,7 @@ public class UserServiceImpl implements UserService {
 
             validateEmail(userDto);
             User registerUserWithRole = registerUserWithRole(userDto, Role.USER);
+            cartService.createNewCart(registerUserWithRole);
             UserDto user = new UserDto(registerUserWithRole);
             user.setPassword(null);
             return new ResponseDto<>(user);
