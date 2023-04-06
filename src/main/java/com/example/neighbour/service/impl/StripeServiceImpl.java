@@ -76,6 +76,18 @@ public class StripeServiceImpl implements StripeService {
         }
     }
 
+    public String refreshAccountLink(String accountId){
+        try {
+            Account account = Account.retrieve(accountId);
+            AccountLinkCreateParams accountLinkCreateParams = buildAccountLinkParams(account);
+
+            AccountLink accountLink = AccountLink.create(accountLinkCreateParams);
+            return accountLink.getUrl();
+        } catch (StripeException e) {
+            throw new ErrorResponseException(e.getStatusCode(), "Error occurred while retrieving account");
+        }
+    }
+
     private static AccountCreateParams buildAccountCreateParams() {
         return AccountCreateParams
                 .builder()
@@ -119,7 +131,7 @@ public class StripeServiceImpl implements StripeService {
         return AccountLinkCreateParams
                 .builder()
                 .setAccount(account.getId())
-                .setRefreshUrl("http://localhost:3000/login")
+                .setRefreshUrl("http://localhost:8080/api/v1/webhook/account/refresh/" + account.getId())
                 .setReturnUrl("http://localhost:3000/login")
                 .setType(AccountLinkCreateParams.Type.ACCOUNT_ONBOARDING)
                 .build();

@@ -15,4 +15,10 @@ public interface StripeService {
      * complete the registration process.
      */
     StripeAccountResponse registerBusinessAccount(String email);
+
+
+    /**
+     * This method is used to refresh the account link for the given account id.
+     */
+    String refreshAccountLink(String accountId);
 }

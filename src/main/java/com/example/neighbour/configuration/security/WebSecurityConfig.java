@@ -143,7 +143,7 @@ public class WebSecurityConfig {
         auth
                 .requestMatchers(new AntPathRequestMatcher(ApiConstants.API_VERSION_1 + "user/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher(ApiConstants.API_VERSION_1 + "authenticate")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher(ApiConstants.API_VERSION_1 + "webhook")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher(ApiConstants.API_VERSION_1 + "webhook/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher(ApiConstants.API_VERSION_1 + "address")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher(ApiConstants.API_VERSION_1 + "webhook/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/swagger-ui")).permitAll()
