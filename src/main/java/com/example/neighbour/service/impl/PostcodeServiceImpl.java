@@ -1,8 +1,8 @@
 package com.example.neighbour.service.impl;
 
-import com.example.neighbour.dto.PostCodeData;
-import com.example.neighbour.dto.PostCodeApiResponse;
-import com.example.neighbour.dto.PostCodeResult;
+import com.example.neighbour.dto.place.PostCodeData;
+import com.example.neighbour.dto.place.PostCodeApiResponse;
+import com.example.neighbour.dto.place.PostCodeResult;
 import com.example.neighbour.service.PostcodeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

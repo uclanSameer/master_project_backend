@@ -1,7 +1,7 @@
 package com.example.neighbour.controller;
 
 
-import com.example.neighbour.dto.LocationResponse;
+import com.example.neighbour.dto.place.LocationResponse;
 import com.example.neighbour.dto.ResponseDto;
 import com.example.neighbour.service.AddressFinderService;
 import com.example.neighbour.utils.ApiConstants;

@@ -1,7 +1,7 @@
 package com.example.neighbour.data.cart;
 
 import com.example.neighbour.data.User;
-import com.example.neighbour.dto.UserDto;
+import com.example.neighbour.dto.users.UserDto;
 import com.example.neighbour.dto.cart.CartDto;
 import jakarta.persistence.*;
 

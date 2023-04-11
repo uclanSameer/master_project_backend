@@ -1,12 +1,12 @@
 package com.example.neighbour.service.impl;
 
 import com.example.neighbour.configuration.security.permissions.ROLE_BUSINESS;
-import com.example.neighbour.data.MenuItem;
 import com.example.neighbour.data.Business;
+import com.example.neighbour.data.MenuItem;
 import com.example.neighbour.data.User;
-import com.example.neighbour.dto.EsBusinessDto;
 import com.example.neighbour.dto.MenuItemDto;
 import com.example.neighbour.dto.ResponseDto;
+import com.example.neighbour.dto.business.EsBusinessDto;
 import com.example.neighbour.repositories.MenuRepository;
 import com.example.neighbour.service.BusinessService;
 import com.example.neighbour.service.ElasticSearchService;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.example.neighbour.utils.UserUtils.getAuthenticatedUser;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
@@ -85,12 +86,13 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public ResponseDto<List<MenuItemDto>> getMenusByBusinessId(String sellerId) {
+    public List<MenuItem> getMenusByBusinessId(Integer sellerId) {
         log.info("Getting menus by seller id: {}", sellerId);
-        List<MenuItemDto> menuItems = menuItemRepository.findAllByBusiness(sellerId)
-                .map(MenuItemDto::new)
-                .toList();
-        return ResponseDto.success(menuItems, "Menus fetched successfully.");
+        Optional<List<MenuItem>> menuItems = menuItemRepository.findAllByBusinessId(sellerId);
+
+        return menuItems
+                .orElseThrow(() -> new ResponseStatusException(
+                        INTERNAL_SERVER_ERROR, "Menu item not found."));
     }
 
     public MenuItemDto getMenuItemById(int menuItemId) {

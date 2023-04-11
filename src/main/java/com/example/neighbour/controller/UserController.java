@@ -2,7 +2,7 @@ package com.example.neighbour.controller;
 
 import com.example.neighbour.dto.JwtResponseDto;
 import com.example.neighbour.dto.ResponseDto;
-import com.example.neighbour.dto.UserDto;
+import com.example.neighbour.dto.users.UserDto;
 import com.example.neighbour.service.UserService;
 import com.example.neighbour.service.user.VerificationService;
 import com.example.neighbour.utils.ApiConstants;

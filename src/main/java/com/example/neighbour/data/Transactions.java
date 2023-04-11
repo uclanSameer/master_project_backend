@@ -4,6 +4,7 @@ package com.example.neighbour.data;
 import com.example.neighbour.enums.Currency;
 import com.example.neighbour.enums.TransactionMethod;
 import com.example.neighbour.enums.TransactionStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,7 @@ public class Transactions {
     @Column(name = "amount")
     private BigDecimal amount;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User fromUser;

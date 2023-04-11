@@ -3,7 +3,7 @@ package com.example.neighbour.controller;
 
 import com.example.neighbour.dto.ResponseDto;
 import com.example.neighbour.dto.UploadImage;
-import com.example.neighbour.dto.UserDto;
+import com.example.neighbour.dto.users.UserDto;
 import com.example.neighbour.service.user.ProfileService;
 import com.example.neighbour.utils.ApiConstants;
 import lombok.AllArgsConstructor;

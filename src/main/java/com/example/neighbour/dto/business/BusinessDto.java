@@ -1,6 +1,8 @@
-package com.example.neighbour.dto;
+package com.example.neighbour.dto.business;
 
 import com.example.neighbour.data.Business;
+import com.example.neighbour.dto.place.EsLocationRecord;
+import com.example.neighbour.dto.users.UserDetailDto;
 import jakarta.annotation.Nullable;
 
 import java.io.Serializable;
@@ -20,5 +22,15 @@ public record BusinessDto(
         UserDetailDto userDetail
 
 ) implements Serializable {
+
+    public BusinessDto(Business business) {
+        this(
+                business.getUser().getEmail(),
+                business.isFeatured(),
+                null,
+                null,
+                null
+        );
+    }
 }
 

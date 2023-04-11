@@ -1,7 +1,7 @@
 package com.example.neighbour.dto.cart;
 
 import com.example.neighbour.data.cart.Cart;
-import com.example.neighbour.dto.UserDto;
+import com.example.neighbour.dto.users.UserDto;
 
 import java.io.Serializable;
 

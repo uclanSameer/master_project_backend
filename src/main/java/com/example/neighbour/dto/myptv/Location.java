@@ -1,6 +1,6 @@
 package com.example.neighbour.dto.myptv;
 
-import com.example.neighbour.dto.LocationResponse;
+import com.example.neighbour.dto.place.LocationResponse;
 
 public class Location {
     private Position referencePosition;

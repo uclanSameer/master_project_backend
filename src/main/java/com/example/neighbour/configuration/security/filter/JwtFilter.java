@@ -55,6 +55,7 @@ public class JwtFilter extends OncePerRequestFilter {
             response.setHeader("Content-Type", "application/json");
             response.getWriter().write(convertObjectToJson(errorResponse));
         } catch (Exception e) {
+            log.error("Error running the service: {}", e.getMessage());
             ResponseDto<String> errorResponse = ResponseDto.failure(e.getMessage());
             response.setStatus(500);
             response.setHeader("Content-Type", "application/json");

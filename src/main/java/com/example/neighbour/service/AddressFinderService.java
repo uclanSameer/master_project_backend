@@ -1,6 +1,6 @@
 package com.example.neighbour.service;
 
-import com.example.neighbour.dto.LocationResponse;
+import com.example.neighbour.dto.place.LocationResponse;
 import com.example.neighbour.dto.ResponseDto;
 
 import java.util.List;

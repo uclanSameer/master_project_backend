@@ -3,7 +3,7 @@ package com.example.neighbour.service;
 import com.example.neighbour.data.User;
 import com.example.neighbour.dto.JwtResponseDto;
 import com.example.neighbour.dto.ResponseDto;
-import com.example.neighbour.dto.UserDto;
+import com.example.neighbour.dto.users.UserDto;
 import com.example.neighbour.enums.Role;
 import org.springframework.security.core.userdetails.UserDetailsService;
 

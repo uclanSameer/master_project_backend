@@ -4,7 +4,7 @@ import com.example.neighbour.data.Business;
 import com.example.neighbour.data.User;
 import com.example.neighbour.data.cart.Cart;
 import com.example.neighbour.dto.ResponseDto;
-import com.example.neighbour.dto.TransactionsDto;
+import com.example.neighbour.dto.transactions.TransactionsDto;
 import com.example.neighbour.dto.cart.CartTotalDto;
 import com.example.neighbour.enums.Currency;
 import com.example.neighbour.enums.TransactionMethod;

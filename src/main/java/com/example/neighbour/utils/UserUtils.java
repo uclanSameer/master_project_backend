@@ -2,7 +2,7 @@ package com.example.neighbour.utils;
 
 import com.example.neighbour.data.User;
 import com.example.neighbour.dto.JwtResponseDto;
-import com.example.neighbour.dto.UserDto;
+import com.example.neighbour.dto.users.UserDto;
 import com.example.neighbour.dto.myptv.AddressDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,6 +1,6 @@
 package com.example.neighbour.data;
 
-import com.example.neighbour.dto.UserDetailDto;
+import com.example.neighbour.dto.users.UserDetailDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

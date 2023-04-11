@@ -1,4 +1,4 @@
-package com.example.neighbour.dto;
+package com.example.neighbour.dto.users;
 
 import com.example.neighbour.data.UserDetail;
 import com.example.neighbour.dto.myptv.AddressDto;

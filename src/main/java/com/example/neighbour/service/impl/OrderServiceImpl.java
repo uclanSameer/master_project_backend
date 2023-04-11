@@ -1,5 +1,7 @@
 package com.example.neighbour.service.impl;
 
+import com.example.neighbour.configuration.security.permissions.ROLE_BUSINESS;
+import com.example.neighbour.data.MenuItem;
 import com.example.neighbour.data.Order;
 import com.example.neighbour.data.OrderItem;
 import com.example.neighbour.data.User;
@@ -11,6 +13,8 @@ import com.example.neighbour.dto.order.OrderItemResponse;
 import com.example.neighbour.enums.PaymentStatus;
 import com.example.neighbour.repositories.OrderItemRepository;
 import com.example.neighbour.repositories.OrderRepository;
+import com.example.neighbour.service.DeliveryService;
+import com.example.neighbour.service.MenuService;
 import com.example.neighbour.service.OrderService;
 import com.example.neighbour.service.aws.S3Service;
 import com.example.neighbour.utils.UserUtils;
@@ -39,6 +43,8 @@ public class OrderServiceImpl implements OrderService {
 
     private final S3Service s3Service;
 
+    private final DeliveryService deliveryService;
+
     /**
      * Convert cart items to order items
      */
@@ -58,6 +64,8 @@ public class OrderServiceImpl implements OrderService {
 
         List<OrderItem> orderItemStream = convertCartItemsToOrderItems(cartItems, placedOrder);
         orderItemRepository.saveAll(orderItemStream);
+
+        deliveryService.createDelivery(placedOrder, cart.getUser().getUserDetail().getAddress().toString());
     }
 
     @Override
@@ -81,6 +89,27 @@ public class OrderServiceImpl implements OrderService {
                 return ResponseDto.success(orderItems, "All orders fetched successfully");
             }
             return ResponseDto.success(Collections.emptyList(), "No orders found");
+        } catch (Exception e) {
+            log.error("Error while fetching all orders: {}", e.getMessage());
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "Error while fetching all orders");
+        }
+    }
+
+
+    @Override
+    @ROLE_BUSINESS
+    public ResponseDto<List<OrderItemResponse>> getOrdersForMenuItems(List<MenuItem> menuItems) {
+        log.info("Getting all orders for business");
+        try {
+            var orderItems = orderItemRepository.findAllByItemIn(menuItems)
+                    .orElseGet(List::of);
+
+            var orderItemResponses = orderItems
+                    .stream()
+                    .map(OrderItemResponse::fromOrderItem)
+                    .map(this::mapOrderItemResponse)
+                    .toList();
+            return ResponseDto.success(orderItemResponses, "All orders fetched successfully");
         } catch (Exception e) {
             log.error("Error while fetching all orders: {}", e.getMessage());
             throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "Error while fetching all orders");

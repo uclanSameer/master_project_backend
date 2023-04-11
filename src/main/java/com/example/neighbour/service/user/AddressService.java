@@ -2,7 +2,7 @@ package com.example.neighbour.service.user;
 
 import com.example.neighbour.data.User;
 import com.example.neighbour.data.UserDetail;
-import com.example.neighbour.dto.UserDto;
+import com.example.neighbour.dto.users.UserDto;
 
 public interface AddressService {
 

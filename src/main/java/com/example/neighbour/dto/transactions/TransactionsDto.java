@@ -1,4 +1,4 @@
-package com.example.neighbour.dto;
+package com.example.neighbour.dto.transactions;
 
 import com.example.neighbour.data.Business;
 import com.example.neighbour.data.Transactions;

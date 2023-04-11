@@ -1,7 +1,7 @@
 package com.example.neighbour.dto.myptv;
 
 import com.example.neighbour.data.PositionEntity;
-import com.example.neighbour.dto.EsLocationRecord;
+import com.example.neighbour.dto.place.EsLocationRecord;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

@@ -1,7 +1,7 @@
 package com.example.neighbour.controller;
 
 import com.example.neighbour.dto.ResponseDto;
-import com.example.neighbour.dto.BusinessApplicationDto;
+import com.example.neighbour.dto.business.BusinessApplicationDto;
 import com.example.neighbour.service.BusinessApplicationService;
 import com.example.neighbour.utils.ApiConstants;
 import lombok.AllArgsConstructor;

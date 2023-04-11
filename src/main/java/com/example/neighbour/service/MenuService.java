@@ -1,5 +1,6 @@
 package com.example.neighbour.service;
 
+import com.example.neighbour.data.MenuItem;
 import com.example.neighbour.dto.MenuItemDto;
 import com.example.neighbour.dto.ResponseDto;
 
@@ -34,7 +35,7 @@ public interface MenuService {
      *
      * @return - list of menu items
      */
-    ResponseDto<List<MenuItemDto>> getMenusByBusinessId(String sellerId);
+    List<MenuItem> getMenusByBusinessId(Integer businessId);
 
 
     /**

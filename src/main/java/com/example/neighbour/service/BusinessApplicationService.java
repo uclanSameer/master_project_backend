@@ -1,6 +1,6 @@
 package com.example.neighbour.service;
 
-import com.example.neighbour.dto.BusinessApplicationDto;
+import com.example.neighbour.dto.business.BusinessApplicationDto;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.example.neighbour.service.impl;
 
-import com.example.neighbour.dto.LocationResponse;
+import com.example.neighbour.dto.place.LocationResponse;
 import com.example.neighbour.dto.ResponseDto;
 import com.example.neighbour.dto.myptv.AddressResponse;
 import com.example.neighbour.dto.myptv.Location;

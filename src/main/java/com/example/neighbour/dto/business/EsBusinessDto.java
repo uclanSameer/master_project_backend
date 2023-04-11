@@ -1,5 +1,7 @@
-package com.example.neighbour.dto;
+package com.example.neighbour.dto.business;
 
+import com.example.neighbour.dto.place.EsLocationRecord;
+import com.example.neighbour.dto.users.UserDetailDto;
 import jakarta.annotation.Nullable;
 
 import java.io.Serializable;

@@ -30,7 +30,8 @@ public class Delivery {
     private String deliveryPerson;
 
     @Column(name = "status", nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus status;
 
     @Override
     public boolean equals(Object o) {
@@ -43,5 +44,12 @@ public class Delivery {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+
+    public enum DeliveryStatus {
+        PENDING,
+        ON_THE_WAY,
+        DELIVERED
     }
 }

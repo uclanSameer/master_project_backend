@@ -4,7 +4,7 @@ import com.example.neighbour.data.Address;
 import com.example.neighbour.data.PositionEntity;
 import com.example.neighbour.data.User;
 import com.example.neighbour.data.UserDetail;
-import com.example.neighbour.dto.UserDto;
+import com.example.neighbour.dto.users.UserDto;
 import com.example.neighbour.repositories.AddressRepository;
 import com.example.neighbour.repositories.PositionRepository;
 import lombok.RequiredArgsConstructor;

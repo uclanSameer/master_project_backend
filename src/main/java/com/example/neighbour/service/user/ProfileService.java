@@ -1,7 +1,7 @@
 package com.example.neighbour.service.user;
 
 import com.example.neighbour.dto.ResponseDto;
-import com.example.neighbour.dto.UserDto;
+import com.example.neighbour.dto.users.UserDto;
 
 public interface ProfileService {
 

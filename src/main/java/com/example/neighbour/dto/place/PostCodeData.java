@@ -1,4 +1,4 @@
-package com.example.neighbour.dto;
+package com.example.neighbour.dto.place;
 
 
 //TODO: Merge this with PostCodeResult

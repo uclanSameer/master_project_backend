@@ -1,5 +1,7 @@
 package com.example.neighbour.dto;
 
+import com.example.neighbour.dto.users.UserDto;
+
 import java.io.Serializable;
 import java.time.Instant;
 

@@ -1,5 +1,6 @@
 package com.example.neighbour.service;
 
+import com.example.neighbour.data.MenuItem;
 import com.example.neighbour.data.cart.Cart;
 import com.example.neighbour.data.cart.CartItem;
 import com.example.neighbour.dto.ResponseDto;
@@ -19,4 +20,8 @@ public interface OrderService {
      * Get all orders for a current user
      */
     ResponseDto<List<OrderItemResponse>> getAllOrders();
+
+
+    ResponseDto<List<OrderItemResponse>> getOrdersForMenuItems(List<MenuItem> menuItems);
+
 }

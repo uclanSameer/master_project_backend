@@ -1,4 +1,4 @@
-package com.example.neighbour.dto;
+package com.example.neighbour.dto.users;
 
 import com.example.neighbour.data.User;
 import jakarta.annotation.Nullable;
@@ -32,7 +32,7 @@ public class UserDto implements Serializable {
 
     public UserDto(User user) {
         this.email = user.getEmail();
-        this.password = user.getPassword();
+        this.password = "*********";
         this.userDetail = user.getUserDetail() == null ?
                 null :
                 new UserDetailDto(user.getUserDetail());

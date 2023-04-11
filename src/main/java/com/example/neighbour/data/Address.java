@@ -71,7 +71,18 @@ public class Address {
         this.houseNumber = addressDto.getHouseNumber();
         this.apartmentNumber = addressDto.getApartmentNumber();
         this.appartmentName = addressDto.getAppartmentName();
-
     }
 
+
+    @Override
+    public String toString() {
+        if (this.houseNumber != null) {
+            return this.houseNumber + " " + this.street + " " + this.subdistrict + " " + this.district + " " + this.city + " " + this.province + " " + this.postalCode + " " + this.countryName;
+        }
+        return formatAddressUsingAppartment();
+    }
+
+    public String formatAddressUsingAppartment() {
+        return this.apartmentNumber + " " + this.appartmentName + " " + this.street + " " + this.subdistrict + " " + this.district + " " + this.city + " " + this.province + " " + this.postalCode + " " + this.countryName;
+    }
 }

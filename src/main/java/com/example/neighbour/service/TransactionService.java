@@ -2,7 +2,8 @@ package com.example.neighbour.service;
 
 import com.example.neighbour.data.Business;
 import com.example.neighbour.data.User;
-import com.example.neighbour.dto.TransactionsDto;
+import com.example.neighbour.dto.transactions.BusinessTransactionsDto;
+import com.example.neighbour.dto.transactions.TransactionsDto;
 
 import java.util.List;
 
@@ -12,7 +13,8 @@ public interface TransactionService {
 
     List<TransactionsDto> getAllTransactions();
 
-    List<TransactionsDto> getAllTransactionsToBusiness(Business business);
+    List<BusinessTransactionsDto> getAllTransactionsToBusiness();
+    List<BusinessTransactionsDto> getAllTransactionsToBusiness(Business business);
 
     List<TransactionsDto> getAllTransactionsToBusinessId(Integer businessId);
 

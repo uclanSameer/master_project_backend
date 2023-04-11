@@ -1,6 +1,6 @@
 package com.example.neighbour.service;
 
-import com.example.neighbour.dto.PostCodeData;
+import com.example.neighbour.dto.place.PostCodeData;
 
 public interface PostcodeService {
 

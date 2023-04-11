@@ -1,7 +1,7 @@
 package com.example.neighbour.configuration;
 
-import com.example.neighbour.dto.UserDetailDto;
-import com.example.neighbour.dto.UserDto;
+import com.example.neighbour.dto.users.UserDetailDto;
+import com.example.neighbour.dto.users.UserDto;
 import com.example.neighbour.dto.myptv.AddressDto;
 import com.example.neighbour.dto.myptv.Position;
 import com.example.neighbour.enums.Role;
