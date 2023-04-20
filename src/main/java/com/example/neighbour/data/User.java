@@ -73,7 +73,10 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.verification.getIsVerified();
+        if (this.role.equals(Role.ADMIN))
+            return true;
+        else
+            return this.verification.getIsVerified();
     }
 
     public void setId(Integer id) {

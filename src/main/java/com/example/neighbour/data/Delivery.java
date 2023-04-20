@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
+
 @Entity
 @Getter
 @Setter
@@ -26,8 +27,9 @@ public class Delivery {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "delivery_person", nullable = false)
-    private String deliveryPerson;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User deliveryPerson;
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)

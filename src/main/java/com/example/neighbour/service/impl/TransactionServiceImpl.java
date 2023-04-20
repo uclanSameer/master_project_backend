@@ -1,10 +1,12 @@
 package com.example.neighbour.service.impl;
 
+import com.example.neighbour.configuration.security.permissions.ROLE_ADMIN;
 import com.example.neighbour.configuration.security.permissions.ROLE_BUSINESS;
 import com.example.neighbour.data.Business;
 import com.example.neighbour.data.Transactions;
 import com.example.neighbour.data.User;
 import com.example.neighbour.dto.transactions.BusinessTransactionsDto;
+import com.example.neighbour.dto.transactions.ResponseTransactionsDto;
 import com.example.neighbour.dto.transactions.TransactionsDto;
 import com.example.neighbour.exception.ErrorResponseException;
 import com.example.neighbour.repositories.TransactionRepository;
@@ -36,12 +38,13 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
+    @ROLE_ADMIN
     @Override
-    public List<TransactionsDto> getAllTransactions() {
+    public List<ResponseTransactionsDto> getAllTransactions() {
         try {
             return repository.findAll()
                     .stream()
-                    .map(TransactionsDto::new)
+                    .map(ResponseTransactionsDto::new)
                     .toList();
         } catch (Exception e) {
             log.error("Error getting all transactions: {}", e.getMessage());

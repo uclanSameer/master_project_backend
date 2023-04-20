@@ -3,6 +3,7 @@ package com.example.neighbour.controller;
 import com.example.neighbour.dto.JwtResponseDto;
 import com.example.neighbour.dto.ResponseDto;
 import com.example.neighbour.dto.users.UserDto;
+import com.example.neighbour.enums.Role;
 import com.example.neighbour.service.UserService;
 import com.example.neighbour.service.user.VerificationService;
 import com.example.neighbour.utils.ApiConstants;
@@ -38,6 +39,7 @@ public class UserController {
         verificationService.verifyEmail(token);
         return ResponseDto.success(null, "Email verified successfully");
     }
+
 
 
     @PostMapping("/authenticate")

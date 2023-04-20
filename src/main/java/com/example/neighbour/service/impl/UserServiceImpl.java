@@ -1,6 +1,7 @@
 package com.example.neighbour.service.impl;
 
 import com.example.neighbour.configuration.security.jwt.JwtUtils;
+import com.example.neighbour.configuration.security.permissions.ROLE_ADMIN;
 import com.example.neighbour.data.Business;
 import com.example.neighbour.data.User;
 import com.example.neighbour.data.UserDetail;
@@ -26,6 +27,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 import static com.example.neighbour.utils.UserUtils.getAuthenticatedUser;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -79,6 +82,20 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @ROLE_ADMIN
+    public ResponseDto<String> addDeliveryUser(UserDto user) {
+        try {
+            UserUtils.validateUser(user);
+            validateEmail(user);
+            registerUserWithRole(user, Role.DELIVERY);
+            log.debug("Delivery user with email {} registered successfully", user.getEmail());
+            return new ResponseDto<>("Delivery user registered successfully");
+        } catch (Exception e) {
+            log.error("Error occurred while registering the delivery user with email {}", user.getEmail(), e);
+            throw new ResponseStatusException(BAD_REQUEST, e.getMessage());
+        }
+    }
+
     public User registerUserWithRole(UserDto userDto, Role role) {
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         User user = new User(userDto, role);
@@ -92,7 +109,7 @@ public class UserServiceImpl implements UserService {
             profileService.uploadProfilePicture(userDto.getUserDetail().getImageUrl());
         }
 
-        if (role.equals(Role.USER)) {
+        if (role.equals(Role.USER) || role.equals(Role.DELIVERY)) {
             verificationService.sendUserVerificationEmail(user);
         }
         log.debug("User with email {} registered successfully", userDto.getEmail());
@@ -148,6 +165,24 @@ public class UserServiceImpl implements UserService {
         verification.setIsVerified(true);
         userRepository.save(user);
         log.info("User with email {} has been verified", user.getEmail());
+    }
+
+    @ROLE_ADMIN
+    @Override
+    public ResponseDto<List<UserDto>> getAllUsers() {
+        log.info("Fetching all users");
+        List<User> allUsers = userRepository.findAllByRoleNot(Role.ADMIN);
+        List<UserDto> users = UserUtils.convertUserListToUserDtoList(allUsers);
+        return ResponseDto.success(users, "All users fetched successfully");
+    }
+
+    @ROLE_ADMIN
+    @Override
+    public ResponseDto<List<UserDto>> getAllUsersByRole(Role role) {
+        log.info("Fetching all users with role {}", role);
+        List<User> allUsers = userRepository.findAllByRole(role);
+        List<UserDto> users = UserUtils.convertUserListToUserDtoList(allUsers);
+        return ResponseDto.success(users, "All users fetched successfully");
     }
 
     private void validateEmail(UserDto userDto) {

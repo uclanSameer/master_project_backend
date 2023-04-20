@@ -7,6 +7,8 @@ import com.example.neighbour.dto.users.UserDto;
 import com.example.neighbour.enums.Role;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.List;
+
 public interface UserService extends UserDetailsService {
 
     /**
@@ -51,6 +53,14 @@ public interface UserService extends UserDetailsService {
      */
     ResponseDto<String> registerBusiness(UserDto userDto);
 
+
+    /**
+     * Adds delivery user to the database
+     * @param user - user to be added
+     * @return - response dto
+     */
+    ResponseDto<String> addDeliveryUser(UserDto user);
+
     /**
      * Checks if any user is present in the database
      *
@@ -61,4 +71,7 @@ public interface UserService extends UserDetailsService {
 
 
     void updateBusinessAccountAsVerified(String accountId);
+
+    ResponseDto<List<UserDto>> getAllUsers();
+    ResponseDto<List<UserDto>> getAllUsersByRole(Role role);
 }

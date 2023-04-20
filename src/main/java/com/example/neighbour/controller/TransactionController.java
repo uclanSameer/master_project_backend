@@ -2,6 +2,8 @@ package com.example.neighbour.controller;
 
 import com.example.neighbour.dto.ResponseDto;
 import com.example.neighbour.dto.transactions.BusinessTransactionsDto;
+import com.example.neighbour.dto.transactions.ResponseTransactionsDto;
+import com.example.neighbour.dto.transactions.TransactionsDto;
 import com.example.neighbour.service.TransactionService;
 import com.example.neighbour.utils.ApiConstants;
 import lombok.AllArgsConstructor;
@@ -25,5 +27,14 @@ public class TransactionController {
         List<BusinessTransactionsDto> allTransactionsToBusiness = transactionService.getAllTransactionsToBusiness();
 
         return ResponseDto.success(allTransactionsToBusiness, "Transactions fetched successfully");
+    }
+
+    @GetMapping("/all")
+    public ResponseDto<List<ResponseTransactionsDto>> getAllTransactions() {
+        log.info("Getting all transactions");
+        List<ResponseTransactionsDto> allTransactions = transactionService.getAllTransactions();
+
+        return ResponseDto.success(allTransactions, "Transactions fetched successfully");
+
     }
 }

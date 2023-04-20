@@ -43,7 +43,7 @@ public class VerificationServiceImpl implements VerificationService {
 
         MessageDto messageDto = buildEmailMessage(user, token, null);
 
-        emailService.sendEmail(messageDto);
+//        emailService.sendEmail(messageDto);
 
         log.info("Verification email has been sent to: {}", user.getEmail());
     }
