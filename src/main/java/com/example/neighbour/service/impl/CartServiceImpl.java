@@ -19,6 +19,7 @@ import com.example.neighbour.repositories.MenuRepository;
 import com.example.neighbour.service.CartService;
 import com.example.neighbour.service.CartTotalService;
 import com.example.neighbour.service.OrderService;
+import com.example.neighbour.service.ReceiptService;
 import com.example.neighbour.service.aws.S3Service;
 import com.example.neighbour.utils.GeneralStringConstants;
 import com.example.neighbour.utils.UserUtils;
@@ -51,6 +52,8 @@ public class CartServiceImpl implements CartService {
     private final OrderService orderService;
 
     private final CartTotalService cartTotalService;
+
+    private final ReceiptService  receiptService;
 
     @Transactional
     @Override
@@ -235,10 +238,14 @@ public class CartServiceImpl implements CartService {
     @NotNull
     private ResponseDto<CartTotalDto> checkOut(Cart cart) {
         List<CartItem> cartItems = cartItemRepository.findAllByCartId(cart.getId());
+
         if (cartItems.isEmpty()) {
             return ResponseDto.success(null, "Cart is empty");
         }
         orderService.checkoutOrder(cartItems, cart);
+
+        receiptService.sendReceipt(cartItems, cart.getUser().getEmail());
+
         log.info("Order placed for cart: {}", cartItems);
 
         CartTotal cartTotal = cartTotalService.checkoutCartTotal(cart, PaymentStatus.PAID);

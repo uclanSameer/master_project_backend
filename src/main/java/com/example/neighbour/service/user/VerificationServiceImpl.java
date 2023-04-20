@@ -112,9 +112,10 @@ public class VerificationServiceImpl implements VerificationService {
         verificationUrl = url != null ? url : verificationUrl;
         String htmlMessage = "<a href=\"" + verificationUrl + "\">Verify your email</a>";
         return MessageDto.builder()
-                .toAddress(user.getEmail())
+                .to(user.getEmail())
                 .subject("Verify your email")
                 .message(htmlMessage)
+                .isHtml(true)
                 .build();
     }
 }

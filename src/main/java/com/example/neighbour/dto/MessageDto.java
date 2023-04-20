@@ -4,8 +4,10 @@ import lombok.Builder;
 
 @Builder
 public record MessageDto(
-        String toAddress,
+        String to,
         String subject,
-        String message
+        String message,
+
+        boolean isHtml
 ) {
 }

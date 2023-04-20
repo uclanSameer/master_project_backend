@@ -19,7 +19,7 @@ public class SesService implements EmailService {
     @Override
     public void sendEmail(MessageDto messageDto) {
         Destination destination = Destination.builder()
-                .toAddresses(messageDto.toAddress())
+                .toAddresses(messageDto.to())
                 .build();
 
         Content subjectContent = Content.builder()
@@ -30,9 +30,7 @@ public class SesService implements EmailService {
                 .data(messageDto.message())
                 .build();
 
-        Body body = Body.builder()
-                .text(bodyContent)
-                .build();
+        Body body = getBody(bodyContent,  messageDto.isHtml());
 
         Message emailMessage = Message.builder()
                 .subject(subjectContent)
@@ -49,4 +47,16 @@ public class SesService implements EmailService {
 
 
     }
+
+    private static Body getBody(Content bodyContent, boolean isHtml) {
+        if (isHtml) {
+            return Body.builder()
+                    .html(bodyContent)
+                    .build();
+        }
+        return Body.builder()
+                .text(bodyContent)
+                .build();
+    }
+
 }
