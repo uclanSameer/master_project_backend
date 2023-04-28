@@ -223,8 +223,8 @@ public class CartServiceImpl implements CartService {
 
                     BigDecimal price = menuItem.getPrice().multiply(new BigDecimal(quantity));
 
-                    if (amountToPayToBusiness.containsKey(businessId)) {
-                        BigDecimal amount = amountToPayToBusiness.get(businessId);
+                    if (amountToPayToBusiness.containsKey(business)) {
+                        BigDecimal amount = amountToPayToBusiness.get(business);
                         amountToPayToBusiness.put(business, amount.add(price));
                     } else {
                         amountToPayToBusiness.put(business, price);

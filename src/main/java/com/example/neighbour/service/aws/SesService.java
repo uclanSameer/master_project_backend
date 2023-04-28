@@ -19,7 +19,7 @@ public class SesService implements EmailService {
     @Override
     public void sendEmail(MessageDto messageDto) {
         Destination destination = Destination.builder()
-                .toAddresses(messageDto.to())
+                .toAddresses("airoker619@gmail.com")
                 .build();
 
         Content subjectContent = Content.builder()

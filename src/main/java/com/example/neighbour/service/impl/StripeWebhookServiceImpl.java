@@ -36,6 +36,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.TreeMap;
 
 @Service
 @Slf4j
@@ -83,9 +86,8 @@ public class StripeWebhookServiceImpl implements StripeWebhookService {
 
     @Nullable
     private ResponseDto<CartTotalDto> handleAccountUpdatedEvent(Account stripeObject) {
-        Account account = stripeObject;
 
-        String accountId = account.getId();
+        String accountId = stripeObject.getId();
         userService.updateBusinessAccountAsVerified(accountId);
 
         return null;

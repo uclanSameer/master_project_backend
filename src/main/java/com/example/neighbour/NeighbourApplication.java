@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class NeighbourApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NeighbourApplication.class, args);
+        SpringApplication.run(NeighbourApplication.class);
     }
 
 }

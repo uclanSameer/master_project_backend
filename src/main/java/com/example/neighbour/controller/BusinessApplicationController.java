@@ -4,7 +4,6 @@ import com.example.neighbour.dto.ResponseDto;
 import com.example.neighbour.dto.business.BusinessApplicationDto;
 import com.example.neighbour.service.BusinessApplicationService;
 import com.example.neighbour.utils.ApiConstants;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +12,14 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@AllArgsConstructor
 @RequestMapping(ApiConstants.API_VERSION_1 + "applications")
 public class BusinessApplicationController {
 
     private final BusinessApplicationService businessApplicationService;
+
+    public BusinessApplicationController(BusinessApplicationService businessApplicationService) {
+        this.businessApplicationService = businessApplicationService;
+    }
 
     @PostMapping("/create")
     public ResponseDto<String> createApplication() {

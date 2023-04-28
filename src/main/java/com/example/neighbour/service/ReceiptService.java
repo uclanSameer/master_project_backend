@@ -28,7 +28,6 @@ public class ReceiptService {
     }
 
 
-    //    create html for cartItems
     public String createHtml(List<CartItem> cartItems) {
         StringBuilder sb = new StringBuilder();
 
