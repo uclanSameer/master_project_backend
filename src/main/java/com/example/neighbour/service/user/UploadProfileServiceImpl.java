@@ -24,13 +24,23 @@ public class UploadProfileServiceImpl implements ProfileService {
     private final UserDetailRepository userDetailRepository;
 
     @Override
-    public ResponseDto<String> uploadProfilePicture(String url) {
+    public ResponseDto<String> uploadProfilePicture(String base64Image) {
         try {
             User user = getAuthenticatedUser();
+            return uploadProfilePicture(base64Image, user);
+        } catch (Exception e) {
+            log.error("Error occurred while updating the profile picture for the user", e);
+            throw new ResponseStatusException(BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @Override
+    public ResponseDto<String> uploadProfilePicture(String base64Image, User user) {
+        try {
             log.debug("Updating the profile picture for the user : {}", user.getUsername());
             UserDetail userDetail = user.getUserDetail();
-            String key = "image/" + user.getId() + "/profile/" + user.getUserDetail().getName();
-            s3Service.uploadFile(key, url);
+            String key = "image/" + user.getId() + "/profile/" + user.getId();
+            s3Service.uploadFile(key, base64Image);
             userDetail.setImageUrl(key);
             userDetailRepository.save(userDetail);
             log.debug("Updating the profile picture successful for the user : {}", user.getUsername());

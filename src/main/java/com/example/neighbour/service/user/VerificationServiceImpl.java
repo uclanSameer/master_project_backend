@@ -25,7 +25,7 @@ public class VerificationServiceImpl implements VerificationService {
     private final EmailService emailService;
 
     @Override
-    public void sendUserVerificationEmail(User user) {
+    public void sendUserVerificationEmailToNormalUser(User user) {
         Optional<Verification> verification = verificationRepository.findByUser(user);
         if (verification.isPresent() && verification.get().getIsVerified()) {
             log.info("User with email: {} is already verified", user.getEmail());
@@ -43,7 +43,7 @@ public class VerificationServiceImpl implements VerificationService {
 
         MessageDto messageDto = buildEmailMessage(user, token, null);
 
-//        emailService.sendEmail(messageDto);
+        emailService.sendEmail(messageDto);
 
         log.info("Verification email has been sent to: {}", user.getEmail());
     }

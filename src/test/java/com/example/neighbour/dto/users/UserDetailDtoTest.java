@@ -1,7 +1,9 @@
 package com.example.neighbour.dto.users;
 
 import com.example.neighbour.dto.myptv.AddressDto;
+import com.example.neighbour.dto.myptv.AddressDtoTest;
 import com.example.neighbour.dto.myptv.Position;
+import com.example.neighbour.dto.myptv.PositionTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,12 +19,13 @@ public class UserDetailDtoTest {
         );
     }
 
+
     private static Position getPosition() {
-        return null;
+        return PositionTest.getPosition();
     }
 
     private static AddressDto getAddressDto() {
-        return null;
+        return AddressDtoTest.getAddressDto();
     }
 
 }

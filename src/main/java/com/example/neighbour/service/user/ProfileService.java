@@ -1,5 +1,6 @@
 package com.example.neighbour.service.user;
 
+import com.example.neighbour.data.User;
 import com.example.neighbour.dto.ResponseDto;
 import com.example.neighbour.dto.users.UserDto;
 
@@ -12,6 +13,8 @@ public interface ProfileService {
      * @return - response dto
      */
     ResponseDto<String> uploadProfilePicture(String url);
+
+    ResponseDto<String> uploadProfilePicture(String url, User user);
 
     /**
      * Gets the profile of the user

@@ -101,16 +101,19 @@ public class UserServiceImpl implements UserService {
         User user = new User(userDto, role);
         User savedUser = userRepository.save(user);
         UserDetailDto userDetail = userDto.getUserDetail();
+        String image = userDetail.getImageUrl() ;
+        userDetail.setImageUrl(null);
         UserDetail savedUserDetails = userDetailRepository.save(new UserDetail(userDetail, user));
 
         addressService.saveAddress(userDto, savedUser, savedUserDetails);
 
-        if (userDto.getUserDetail().getImageUrl() != null) {
-            profileService.uploadProfilePicture(userDto.getUserDetail().getImageUrl());
+        savedUser.setUserDetail(savedUserDetails);
+        if (image != null) {
+            profileService.uploadProfilePicture(image, savedUser);
         }
 
         if (role.equals(Role.USER) || role.equals(Role.DELIVERY)) {
-            verificationService.sendUserVerificationEmail(user);
+            verificationService.sendUserVerificationEmailToNormalUser(user);
         }
         log.debug("User with email {} registered successfully", userDto.getEmail());
 

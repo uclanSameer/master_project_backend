@@ -43,6 +43,14 @@ public class Delivery {
         return id != null && Objects.equals(id, delivery.id);
     }
 
+    public Delivery(Integer id, Order order, String address, User deliveryPerson, DeliveryStatus status) {
+        this.id = id;
+        this.order = order;
+        this.address = address;
+        this.deliveryPerson = deliveryPerson;
+        this.status = status;
+    }
+
     @Override
     public int hashCode() {
         return getClass().hashCode();

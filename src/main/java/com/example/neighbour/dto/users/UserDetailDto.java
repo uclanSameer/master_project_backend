@@ -26,6 +26,9 @@ public class UserDetailDto implements Serializable {
 
     private Position position;
 
+    public String getImageUrl() {
+        return imageUrl == null ? null : imageUrl;
+    }
 
     public UserDetailDto(UserDetail userDetail) {
         this.name = userDetail.getName();

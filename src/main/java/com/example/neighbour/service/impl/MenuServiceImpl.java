@@ -34,8 +34,6 @@ public class MenuServiceImpl implements MenuService {
     private final S3Service s3Service;
     private final ElasticSearchService<MenuItemDto> esService;
 
-    private final ElasticSearchService<EsBusinessDto> esBusinessService;
-
     /**
      * Generates a unique key for the image to be stored in S3
      */
@@ -70,7 +68,7 @@ public class MenuServiceImpl implements MenuService {
     public ResponseDto<List<MenuItemDto>> getMenusByCuisine(String cuisine) {
         log.info("Getting menus by cuisine: {}", cuisine);
         List<MenuItemDto> menuItems = menuItemRepository.findAllByCuisine(cuisine)
-                .map(MenuItemDto::new)
+                 .map(MenuItemDto::new)
                 .toList();
         return ResponseDto.success(menuItems, "Menus fetched successfully.");
     }

@@ -9,7 +9,7 @@ public interface VerificationService {
      *
      * @param user - user to send email to
      */
-    void sendUserVerificationEmail(User user);
+    void sendUserVerificationEmailToNormalUser(User user);
 
 
     /**

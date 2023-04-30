@@ -7,12 +7,14 @@ import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
 import java.time.Duration;
 import java.util.Base64;
+import java.util.function.Consumer;
 
 @Service
 @Slf4j
@@ -26,6 +28,7 @@ public class S3ServiceImpl implements S3Service {
     @Override
     public void uploadFile(String keyName, String base64File) {
         try {
+            log.info("Uploading file to S3 with key: {}", keyName);
             byte[] bytes = Base64.getDecoder().decode(base64File);
             RequestBody requestBody = RequestBody.fromBytes(bytes);
             s3Client.putObject(builder -> builder
@@ -48,13 +51,13 @@ public class S3ServiceImpl implements S3Service {
                     .key(keyName)
                     .build();
 
-            GetObjectPresignRequest putObjectPresignRequest = GetObjectPresignRequest
+            GetObjectPresignRequest putObjectPressingRequest = GetObjectPresignRequest
                     .builder()
                     .signatureDuration(Duration.ofMinutes(15))
                     .getObjectRequest(getObjectRequest).build();
 
             return preSigner
-                    .presignGetObject(putObjectPresignRequest)
+                    .presignGetObject(putObjectPressingRequest)
                     .url().toString();
         } catch (S3Exception e) {
             log.error("Error while generating pre-signed url with message: {}", e.getMessage(), e);
@@ -67,8 +70,9 @@ public class S3ServiceImpl implements S3Service {
     public boolean checkIfFileExists(String keyName) {
         try {
             log.info("Checking if file exists in S3 with key: {}", keyName);
-            return s3Client.headObject(builder -> builder.bucket(bucketName)
-                            .key(keyName))
+            Consumer<HeadObjectRequest.Builder> builderConsumer = builder -> builder.bucket(bucketName)
+                    .key(keyName);
+            return s3Client.headObject(builderConsumer)
                     .contentLength() > 0;
         } catch (S3Exception e) {
             log.error("Error while checking if file exists with message: {}", e.getMessage(), e);

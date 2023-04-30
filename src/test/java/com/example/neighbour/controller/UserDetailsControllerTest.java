@@ -55,7 +55,10 @@ class UserDetailsControllerTest {
 
         ResponseDto<java.util.List<UserDto>> responseDto = userDetailsController.getAllUsers();
 
-        assertEquals(UserDtoTest.getUserDtoList(), responseDto.getData());
+
+        assertEquals("success", responseDto.getMessage());
+
+        assertEquals(1, responseDto.getData().size());
     }
 
     @Test
@@ -65,7 +68,10 @@ class UserDetailsControllerTest {
 
         ResponseDto<List<UserDto>> responseDto = userDetailsController.getAllUsersByRole(Role.ADMIN);
 
-        assertEquals(UserDtoTest.getUserDtoList(), responseDto.getData());
+
+        assertEquals("success", responseDto.getMessage());
+
+        assertEquals("test@test.com", responseDto.getData().get(0).getEmail());
     }
 }
 

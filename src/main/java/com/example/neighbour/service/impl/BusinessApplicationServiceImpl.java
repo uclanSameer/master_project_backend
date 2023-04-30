@@ -32,8 +32,6 @@ public class BusinessApplicationServiceImpl implements BusinessApplicationServic
 
     private final BusinessApplicationRepository repository;
 
-    private final BusinessService businessService;
-
     private final PostcodeService postcodeService;
 
     @Override
