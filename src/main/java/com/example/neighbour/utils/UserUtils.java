@@ -78,6 +78,7 @@ public final class UserUtils {
         JwtResponseDto jwtResponseDto = new JwtResponseDto();
         jwtResponseDto.setEmail(userPrincipal.getEmail());
         jwtResponseDto.setToken(jwt);
+        jwtResponseDto.setUserId(userPrincipal.getId());
         jwtResponseDto.setAddress(new AddressDto(userPrincipal.getUserDetail().getAddress()));
         jwtResponseDto.setUserRole(userPrincipal.getRole());
         return jwtResponseDto;

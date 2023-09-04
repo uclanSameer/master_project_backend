@@ -9,4 +9,8 @@ public class ErrorResponseException extends ResponseStatusException {
         super(HttpStatusCode.valueOf(httpStatusCode), message);
     }
 
+    public ErrorResponseException(int httpStatusCode, String message, Throwable cause) {
+        super(HttpStatusCode.valueOf(httpStatusCode), message, cause);
+    }
+
 }

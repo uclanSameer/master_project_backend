@@ -64,7 +64,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     public ResponseDto<List<DeliveryResponse>> assignedDeliveries() {
         User user = UserUtils.getAuthenticatedUser();
         try {
-            List<Delivery> deliveries = deliveryRepository.findAllByDeliveryPerson(user);
+            List<Delivery> deliveries = deliveryRepository.findAllByDeliveryPersonAndStatus(user, Delivery.DeliveryStatus.PENDING);
             List<DeliveryResponse> deliveryResponses = mapListOfDeliveriesToDto(deliveries);
             log.info("Assigned deliveries: {}", deliveryResponses.size());
             return new ResponseDto<>(deliveryResponses);

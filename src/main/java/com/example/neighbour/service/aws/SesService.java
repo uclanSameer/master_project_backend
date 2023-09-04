@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.sesv2.SesV2Client;
 import software.amazon.awssdk.services.sesv2.model.*;
 
-@Service
+//@Service
 @RequiredArgsConstructor
 public class SesService implements EmailService {
 

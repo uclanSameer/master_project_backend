@@ -4,8 +4,8 @@ import com.example.neighbour.data.Business;
 import com.example.neighbour.data.User;
 import com.example.neighbour.data.cart.Cart;
 import com.example.neighbour.dto.ResponseDto;
-import com.example.neighbour.dto.transactions.TransactionsDto;
 import com.example.neighbour.dto.cart.CartTotalDto;
+import com.example.neighbour.dto.transactions.TransactionsDto;
 import com.example.neighbour.enums.Currency;
 import com.example.neighbour.enums.TransactionMethod;
 import com.example.neighbour.enums.TransactionStatus;
@@ -36,9 +36,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.TreeMap;
 
 @Service
 @Slf4j
@@ -95,23 +92,29 @@ public class StripeWebhookServiceImpl implements StripeWebhookService {
 
     private ResponseDto<CartTotalDto> handleCheckoutCompletedEvent(Session stripeObject) throws StripeException {
 
-        String sessionId = stripeObject.getId();
-        Session session = Session.retrieve(sessionId);
+        try {
+            String sessionId = stripeObject.getId();
+            Session session = Session.retrieve(sessionId);
 
-        Map<String, String> metadata = session.getMetadata();
-        String cartId = metadata.get("cartId");
+            Map<String, String> metadata = session.getMetadata();
+            String cartId = metadata.get("cartId");
 
-        Cart cart = cartService.getCartByCartId(Integer.parseInt(cartId));
-        if (cart == null) {
-            throw new ErrorResponseException(404, "Cart not found");
+            Cart cart = cartService.getCartByCartId(Integer.parseInt(cartId));
+            if (cart == null) {
+                throw new ErrorResponseException(404, "Cart not found");
+            }
+            User user = cart.getUser();
+
+            Map<Business, BigDecimal> amountToPayToBusiness = cartService.getAmountToPayToBusiness(cartId);
+
+            payToBusinessAndAddTransactionRecord(user, amountToPayToBusiness);
+
+            return cartService.checkoutCart(cartId);
+        } catch (Exception e) {
+            log.error("Error occurred while handling checkout completed event", e);
+            throw new ErrorResponseException(500, "Error occurred while handling checkout completed event");
         }
-        User user = cart.getUser();
 
-        Map<Business, BigDecimal> amountToPayToBusiness = cartService.getAmountToPayToBusiness(cartId);
-
-        payToBusinessAndAddTransactionRecord(user, amountToPayToBusiness);
-
-        return cartService.checkoutCart(cartId);
     }
 
     private void payToBusinessAndAddTransactionRecord(User user, Map<Business, BigDecimal> amountToPayToBusiness) throws StripeException {

@@ -39,6 +39,8 @@ dependencies {
     implementation 'org.jetbrains:annotations:23.1.0'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
     implementation 'org.thymeleaf:thymeleaf-spring5:3.1.1.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'com.mailgun:mailgun-java:1.0.7'
 
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -4,6 +4,7 @@ import com.example.neighbour.data.Delivery;
 import com.example.neighbour.data.Order;
 import com.example.neighbour.data.User;
 import com.example.neighbour.enums.PaymentStatus;
+import jdk.jshell.Snippet;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface DeliveryRepository extends JpaRepository<Delivery, Integer> {
 
     List<Delivery> findAllByStatus(Delivery.DeliveryStatus status);
 
-    List<Delivery> findAllByDeliveryPerson(User deliveryPerson);
+    List<Delivery> findAllByDeliveryPersonAndStatus(User deliveryPerson, Delivery.DeliveryStatus status);
 
     Optional<Delivery> findByOrderId(int orderId);
 

@@ -9,6 +9,7 @@ public class GeneralStringConstants {
     public static final String INTERNAL_SERVER_ERROR = "Internal server error";
 
     public static final String SUCCESS = "success";
+    public static final String TRUE = "true";
     public static final String FAILED = "failed";
 
     public static final String CART_NOT_FOUND = "Cart not found";

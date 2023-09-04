@@ -11,5 +11,7 @@ public class JwtResponseDto {
     private String email;
     private Role userRole;
 
+    private Integer userId;
+
     private AddressDto address;
 }

@@ -63,9 +63,7 @@ class TransactionServiceImplTest {
                                 TransactionsDtoTest.getTransactionsDtoList()
                         )
                 );
-
         List<BusinessTransactionsDto> allTransactions = transactionService.getAllTransactionsToBusiness();
-
         assertEquals(1, allTransactions.size());
     }
 
