@@ -4,11 +4,13 @@ import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
+import org.apache.http.Header;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.message.BasicHeader;
 import org.elasticsearch.client.RestClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -37,9 +39,13 @@ public class ElasticSearchConfiguration {
         credentialsProvider.setCredentials(AuthScope.ANY,
                 new UsernamePasswordCredentials(username, password));
         return RestClient.builder(
-                        new HttpHost(host, port))
+                        new HttpHost(host, port, "https"))
+                .setDefaultHeaders(new Header[]{
+                        new BasicHeader("Content-type", "application/json")
+                })
                 .setHttpClientConfigCallback(httpAsyncClientBuilder ->
-                        httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialsProvider))
+                        httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialsProvider)
+                )
                 .build();
     }
 

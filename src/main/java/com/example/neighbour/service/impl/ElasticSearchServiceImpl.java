@@ -6,6 +6,7 @@ import co.elastic.clients.elasticsearch.core.UpdateByQueryRequest;
 import co.elastic.clients.json.JsonData;
 import com.example.neighbour.service.ElasticSearchService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -16,6 +17,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class ElasticSearchServiceImpl<T> implements ElasticSearchService<T> {
 
     private final ElasticsearchClient esClient;
@@ -30,7 +32,8 @@ public class ElasticSearchServiceImpl<T> implements ElasticSearchService<T> {
             );
             esClient.index(request);
         } catch (IOException e) {
-            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "Error while adding document to elastic search");
+            log.error("Error while adding document to elastic search", e);
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "Error while adding document to elastic search", e);
         }
     }
 
