@@ -5,19 +5,22 @@ import com.example.neighbour.dto.SearchRequest;
 import com.example.neighbour.dto.SellerSearchRequest;
 import com.example.neighbour.utils.ApiConstants;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.*;
 
-@RestController(ApiConstants.API_VERSION_1 +"search")
+@Slf4j
+@RestController
+@AllArgsConstructor
+@RequestMapping(ApiConstants.API_VERSION_1 + "search")
 public class SearchController {
 
     private final FoodSearchService searchService;
 
-    public SearchController(FoodSearchService searchService) {
-        this.searchService = searchService;
-    }
-
     @PostMapping("/menu")
     public Object searchMenu(@RequestBody MenuSearchRequest search) {
+        log.info("Searching menu");
         return searchService.searchMenu(search);
     }
 
