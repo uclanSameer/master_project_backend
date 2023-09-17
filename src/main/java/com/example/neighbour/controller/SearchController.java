@@ -2,16 +2,17 @@ package com.example.neighbour.controller;
 
 import com.example.neighbour.dto.MenuSearchRequest;
 import com.example.neighbour.dto.SearchRequest;
-import com.example.neighbour.dto.BusinessSearchRequest;
 import com.example.neighbour.dto.SellerSearchRequest;
+import com.example.neighbour.utils.ApiConstants;
+
 import org.springframework.web.bind.annotation.*;
 
-//@RestController("/search")
+@RestController(ApiConstants.API_VERSION_1 +"search")
 public class SearchController {
 
-    private final SearchService searchService;
+    private final FoodSearchService searchService;
 
-    public SearchController(SearchService searchService) {
+    public SearchController(FoodSearchService searchService) {
         this.searchService = searchService;
     }
 

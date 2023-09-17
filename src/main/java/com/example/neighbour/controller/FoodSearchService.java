@@ -5,7 +5,8 @@ import com.example.neighbour.dto.business.BusinessDto;
 
 import java.util.List;
 
-public interface SearchService {
+
+public interface FoodSearchService {
     ResponseDto<MenuItemDto> searchMenu(MenuSearchRequest search);
     ResponseDto<MenuItemDto> allMenu(SearchRequest search);
     ResponseDto<BusinessDto> searchBusiness(SellerSearchRequest search);
