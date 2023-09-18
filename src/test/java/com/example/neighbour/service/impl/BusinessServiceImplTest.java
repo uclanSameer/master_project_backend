@@ -4,7 +4,7 @@ import com.example.neighbour.data.BusinessTest;
 import com.example.neighbour.dto.StripeAccountResponse;
 import com.example.neighbour.dto.business.EsBusinessDto;
 import com.example.neighbour.repositories.BusinessRepository;
-import com.example.neighbour.service.ElasticSearchService;
+import com.example.neighbour.service.ElasticAddUpdateService;
 import com.example.neighbour.service.StripeService;
 import com.example.neighbour.utils.UserUtilsTest;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ class BusinessServiceImplTest {
     private BusinessRepository businessRepository;
 
     @Mock
-    private ElasticSearchService<EsBusinessDto> esService;
+    private ElasticAddUpdateService<EsBusinessDto> esService;
 
     @Mock
     private StripeService stripeService;

@@ -10,7 +10,7 @@ import com.example.neighbour.dto.users.UserDetailDto;
 import com.example.neighbour.exception.ErrorResponseException;
 import com.example.neighbour.repositories.BusinessRepository;
 import com.example.neighbour.service.BusinessService;
-import com.example.neighbour.service.ElasticSearchService;
+import com.example.neighbour.service.ElasticAddUpdateService;
 import com.example.neighbour.service.StripeService;
 import com.example.neighbour.utils.UserUtils;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ public class BusinessServiceImpl implements BusinessService {
 
     private final BusinessRepository businessRepository;
 
-    private final ElasticSearchService<EsBusinessDto> esService;
+    private final ElasticAddUpdateService<EsBusinessDto> esService;
 
     private final StripeService stripeService;
 

@@ -6,10 +6,9 @@ import com.example.neighbour.data.MenuItem;
 import com.example.neighbour.data.User;
 import com.example.neighbour.dto.MenuItemDto;
 import com.example.neighbour.dto.ResponseDto;
-import com.example.neighbour.dto.business.EsBusinessDto;
 import com.example.neighbour.repositories.MenuRepository;
 import com.example.neighbour.service.BusinessService;
-import com.example.neighbour.service.ElasticSearchService;
+import com.example.neighbour.service.ElasticAddUpdateService;
 import com.example.neighbour.service.MenuService;
 import com.example.neighbour.service.aws.S3Service;
 import jakarta.transaction.Transactional;
@@ -32,7 +31,7 @@ public class MenuServiceImpl implements MenuService {
     private final MenuRepository menuItemRepository;
     private final BusinessService businessService;
     private final S3Service s3Service;
-    private final ElasticSearchService<MenuItemDto> esService;
+    private final ElasticAddUpdateService<MenuItemDto> esService;
 
     /**
      * Generates a unique key for the image to be stored in S3
@@ -102,11 +101,6 @@ public class MenuServiceImpl implements MenuService {
                 })
                 .orElseThrow(() -> new ResponseStatusException(
                         INTERNAL_SERVER_ERROR, "Menu item not found."));
-    }
-
-    //validates fields in the menu item
-    public void validateMenuItem(MenuItemDto menuItemDto) {
-        // ignored for now
     }
 
     private static void buildMenuItem(MenuItem menuItem, Business business, String keyName) {

@@ -1,22 +1,9 @@
 package com.example.neighbour.service;
 
-public interface ElasticSearchService<T> {
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.SearchResponse;
 
-    /**
-     * Adds document to the elastic search index
-     *
-     * @param document - document to be added
-     * @param index    - index to be added to
-     * @param id       - id of the document
-     */
-    void addDocument(T document, String index, String id);
+public interface ElasticSearchService {
 
-
-    /**
-     * Adds cuisine to the seller
-     *
-     * @param id      - id of the seller
-     * @param cuisine - cuisine to be added
-     */
-    void addCuisineToSeller(String id, String cuisine);
+    <T> SearchResponse<T> searchDocument(String index, SearchRequest request, Class<T> clazz);
 }

@@ -6,7 +6,6 @@ import co.elastic.clients.elasticsearch.core.UpdateByQueryRequest;
 import com.example.neighbour.dto.business.EsBusinessDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -19,7 +18,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-class ElasticSearchServiceImplTest {
+class ElasticAddUpdateServiceImplTest {
 
     @Mock private ElasticsearchClient esClient;
 
@@ -30,7 +29,7 @@ class ElasticSearchServiceImplTest {
 
         when(esClient.index(any(IndexRequest.class))).thenReturn(null);
 
-        ElasticSearchServiceImpl<Map<String,String>> elasticSearchService = new ElasticSearchServiceImpl<>(esClient);
+        ElasticAddUpdateServiceImpl<Map<String,String>> elasticSearchService = new ElasticAddUpdateServiceImpl<>(esClient);
 
         elasticSearchService.addDocument(testDocument, "testIndex", "testId");
 
@@ -39,7 +38,7 @@ class ElasticSearchServiceImplTest {
 
     @Test
     void addCuisineToSeller() throws IOException {
-        ElasticSearchServiceImpl<EsBusinessDto> elasticSearchService = new ElasticSearchServiceImpl<>(esClient);
+        ElasticAddUpdateServiceImpl<EsBusinessDto> elasticSearchService = new ElasticAddUpdateServiceImpl<>(esClient);
 
         when(esClient.updateByQuery(any(UpdateByQueryRequest.class))).thenReturn(null);
         assertDoesNotThrow(() -> elasticSearchService.addCuisineToSeller("testId", "testCuisine"));

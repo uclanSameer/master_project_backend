@@ -4,7 +4,7 @@ import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.IndexRequest;
 import co.elastic.clients.elasticsearch.core.UpdateByQueryRequest;
 import co.elastic.clients.json.JsonData;
-import com.example.neighbour.service.ElasticSearchService;
+import com.example.neighbour.service.ElasticAddUpdateService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class ElasticSearchServiceImpl<T> implements ElasticSearchService<T> {
+public class ElasticAddUpdateServiceImpl<T> implements ElasticAddUpdateService<T> {
 
     private final ElasticsearchClient esClient;
 

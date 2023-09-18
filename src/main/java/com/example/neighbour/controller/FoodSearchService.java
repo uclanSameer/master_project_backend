@@ -7,9 +7,8 @@ import java.util.List;
 
 
 public interface FoodSearchService {
-    ResponseDto<MenuItemDto> searchMenu(MenuSearchRequest search);
-    ResponseDto<MenuItemDto> allMenu(SearchRequest search);
-    ResponseDto<BusinessDto> searchBusiness(SellerSearchRequest search);
+    ResponseDto<List<MenuItemDto>> searchMenu(MenuSearchRequest search);
+    ResponseDto<List<BusinessDto>> searchBusiness(SellerSearchRequest search);
     ResponseDto<BusinessDto>  findChefById(String id);
-    ResponseDto<List<BusinessDto>>  distinctCuisines();
+    ResponseDto<List<String>>  distinctCuisines();
 }

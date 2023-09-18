@@ -28,6 +28,7 @@ dependencies {
     implementation group: 'com.stripe', name: 'stripe-java', version: '22.10.0'
     implementation 'org.postgresql:postgresql:42.3.8'
     implementation 'co.elastic.clients:elasticsearch-java:7.17.8'
+    testImplementation 'org.projectlombok:lombok:1.18.28'
     compileOnly 'org.projectlombok:lombok'
     implementation 'io.springfox:springfox-swagger-ui:2.0.2'
     implementation 'io.jsonwebtoken:jjwt:0.2'

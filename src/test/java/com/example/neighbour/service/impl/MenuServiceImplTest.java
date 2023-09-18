@@ -7,7 +7,7 @@ import com.example.neighbour.dto.MenuItemDtoTest;
 import com.example.neighbour.dto.ResponseDto;
 import com.example.neighbour.repositories.MenuRepository;
 import com.example.neighbour.service.BusinessService;
-import com.example.neighbour.service.ElasticSearchService;
+import com.example.neighbour.service.ElasticAddUpdateService;
 import com.example.neighbour.service.aws.S3Service;
 import com.example.neighbour.utils.UserUtilsTest;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class MenuServiceImplTest {
 
     @Mock private S3Service s3Service;
 
-    @Mock private ElasticSearchService<MenuItemDto> esService;
+    @Mock private ElasticAddUpdateService<MenuItemDto> esService;
 
     @InjectMocks
     private MenuServiceImpl menuService;

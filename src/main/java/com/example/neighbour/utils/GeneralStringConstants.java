@@ -17,6 +17,6 @@ public class GeneralStringConstants {
     public static final String API_KEY = "apiKey";
 
 
-
+    public static final String DISTINCT_CUISINES = "distinct_cuisines";
 
 }

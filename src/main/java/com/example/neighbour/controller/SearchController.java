@@ -1,16 +1,14 @@
 package com.example.neighbour.controller;
 
 import com.example.neighbour.dto.MenuSearchRequest;
-import com.example.neighbour.dto.SearchRequest;
+import com.example.neighbour.dto.Pagination;
 import com.example.neighbour.dto.SellerSearchRequest;
 import com.example.neighbour.utils.ApiConstants;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping(ApiConstants.API_VERSION_1 + "search")
@@ -20,21 +18,20 @@ public class SearchController {
 
     @PostMapping("/menu")
     public Object searchMenu(@RequestBody MenuSearchRequest search) {
-        log.info("Searching menu");
         return searchService.searchMenu(search);
     }
 
     @PostMapping("/menu/all")
-    public Object allMenu(@RequestBody SearchRequest search) {
-        return searchService.allMenu(search);
+    public Object allMenu(@RequestBody Pagination search) {
+        return searchService.searchMenu(new MenuSearchRequest(search, null, null, null));
     }
 
-    @PostMapping("/cheif")
+    @PostMapping("/chef")
     public Object searchBusiness(@RequestBody SellerSearchRequest search) {
         return searchService.searchBusiness(search);
     }
 
-    @GetMapping("/cheif/{id}")
+    @GetMapping("/chef/{id}")
     public Object findBusinessById(@PathVariable String id) {
         return searchService.findChefById(id);
     }

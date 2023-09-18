@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
         User user = new User(userDto, role);
         User savedUser = userRepository.save(user);
         UserDetailDto userDetail = userDto.getUserDetail();
-        String image = userDetail.getImageUrl() ;
+        String image = userDetail.getImageUrl() == null ? null : userDetail.getImageUrl();
         userDetail.setImageUrl(null);
         UserDetail savedUserDetails = userDetailRepository.save(new UserDetail(userDetail, user));
 

@@ -23,7 +23,7 @@ public class PostcodeServiceImpl implements PostcodeService {
 
         String postcodeApiUrl1 = postcodeApiUrl + "?q=" + code;
         PostCodeApiResponse response = restTemplate.getForObject(postcodeApiUrl1, PostCodeApiResponse.class);
-        PostCodeResult postCodeResult = null;
+        PostCodeResult postCodeResult;
         if (response != null) {
             postCodeResult = response.result().get(0);
             return new PostCodeData(postCodeResult.postcode(),
