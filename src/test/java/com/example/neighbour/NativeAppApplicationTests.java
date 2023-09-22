@@ -1,4 +1,4 @@
-package com.example.nativeapp;
+package com.example.neighbour;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
