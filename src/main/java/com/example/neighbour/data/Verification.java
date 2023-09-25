@@ -26,6 +26,6 @@ public class Verification {
     @Column(name = "token", nullable = false)
     private String token;
 
-    @Column(name = "is_verified", nullable = false)
+    @Column(name = "is_verified", nullable = true)
     private Boolean isVerified;
 }

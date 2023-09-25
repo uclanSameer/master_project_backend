@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
- * A DTO for the {@link com.example.neighbour.data.Transactions} entity
+ * A DTO for the {@link Transactions} entity
  */
 @Builder
 public record TransactionsDto(

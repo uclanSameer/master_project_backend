@@ -91,12 +91,11 @@ public class VerificationServiceImpl implements VerificationService {
      * @return unique token
      */
     private String createUniqueToken() {
-        String token = UUID.randomUUID().toString();
-        //check if token exists in db
-        while (verificationRepository.existsByToken(token)) {
-            token = UUID.randomUUID().toString();
-        }
-        return token;
+        return UUID.randomUUID().toString();
+    }
+
+    private boolean isExist(String token) {
+        return verificationRepository.existsByToken(token).orElse(false);
     }
 
 
