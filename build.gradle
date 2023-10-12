@@ -47,15 +47,12 @@ dependencies {
 	implementation 'co.elastic.clients:elasticsearch-java:7.17.8'
 	testImplementation 'org.projectlombok:lombok:1.18.28'
 	compileOnly 'org.projectlombok:lombok'
-	implementation 'io.springfox:springfox-swagger-ui:2.0.2'
 	implementation 'io.jsonwebtoken:jjwt:0.2'
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7.1'
 	implementation 'javax.xml.bind:jaxb-api:2.2.4'
 	implementation platform('software.amazon.awssdk:bom-internal:2.19.17')
 	implementation 'software.amazon.awssdk:s3:2.19.17'
 	implementation 'software.amazon.awssdk:sesv2:2.20.26'
 	implementation 'org.jetbrains:annotations:23.1.0'
-	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
 	implementation 'org.thymeleaf:thymeleaf-spring5:3.1.1.RELEASE'
 
 	annotationProcessor 'org.projectlombok:lombok'

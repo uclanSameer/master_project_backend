@@ -70,7 +70,6 @@ public class StripeServiceImpl implements StripeService {
             AccountLink accountLink = AccountLink.create(accountLinkCreateParams);
             return new StripeAccountResponse(accountLink.getUrl(), account.getId());
         } catch (StripeException e) {
-            e.printStackTrace();
             log.error("Error occurred while creating business account: {}", e.getMessage());
             throw new ErrorResponseException(e.getStatusCode(), "Error occurred while creating business account");
         }
@@ -132,7 +131,7 @@ public class StripeServiceImpl implements StripeService {
                 .builder()
                 .setAccount(account.getId())
                 .setRefreshUrl("http://localhost:8080/api/v1/webhook/account/refresh/" + account.getId())
-                .setReturnUrl("http://localhost:3000/login")
+                .setReturnUrl("http://localhost:4321/login")
                 .setType(AccountLinkCreateParams.Type.ACCOUNT_ONBOARDING)
                 .build();
     }

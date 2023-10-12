@@ -10,6 +10,7 @@ import com.example.neighbour.utils.GeneralStringConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -36,6 +37,7 @@ public class AddressFinderServiceImpl implements AddressFinderService {
     private final RestTemplate restTemplate;
 
     @Override
+    @RegisterReflectionForBinding({AddressResponse.class})
     public ResponseDto<List<LocationResponse>> getListOfAddress(String postCode) {
         log.debug("Retrieving address for post code: {}", postCode);
 

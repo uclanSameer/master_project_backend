@@ -1,6 +1,7 @@
 package com.example.neighbour.service.impl;
 
-import co.elastic.clients.elasticsearch._types.aggregations.BucketMetricValueAggregate;
+import co.elastic.clients.elasticsearch._types.aggregations.Buckets;
+import co.elastic.clients.elasticsearch._types.aggregations.StringTermsBucket;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
@@ -11,6 +12,7 @@ import com.example.neighbour.dto.MenuSearchRequest;
 import com.example.neighbour.dto.ResponseDto;
 import com.example.neighbour.dto.SellerSearchRequest;
 import com.example.neighbour.dto.business.BusinessDto;
+import com.example.neighbour.dto.business.EsBusinessDto;
 import com.example.neighbour.dto.users.UserDetailDto;
 import com.example.neighbour.service.ElasticSearchService;
 import com.example.neighbour.service.aws.S3Service;
@@ -38,7 +40,7 @@ public class SearchServiceImpl implements FoodSearchService {
         SearchRequest query = SearchUtils.createQueryForMenu(search);
         log.info("Query: {}", query);
         SearchResponse<MenuItemDto> response = searchService.searchDocument("menu", query, MenuItemDto.class);
-        List<MenuItemDto> menu = mapResponse(response);
+        List<MenuItemDto> menu = mapMenuResponse(response);
         return ResponseDto.success(menu, "Success");
     }
 
@@ -46,7 +48,7 @@ public class SearchServiceImpl implements FoodSearchService {
     @Override
     public ResponseDto<List<BusinessDto>> searchBusiness(SellerSearchRequest search) {
         SearchRequest query = SearchUtils.createQueryForBusinessSearch(search);
-        SearchResponse<BusinessDto> response = searchService.searchDocument("seller", query, BusinessDto.class);
+        SearchResponse<EsBusinessDto> response = searchService.searchDocument("seller", query, EsBusinessDto.class);
         List<BusinessDto> menu = mapResponse(response)
                 .stream()
                 .map(businessDto -> {
@@ -66,15 +68,16 @@ public class SearchServiceImpl implements FoodSearchService {
     }
 
     @Override
-    public ResponseDto<BusinessDto> findChefById(String id) {
+    public ResponseDto<EsBusinessDto> findChefById(String id) {
         Query matchQuery = SearchUtils.matchQuery("id", id);
         SearchRequest query = SearchRequest.of(
                 builder -> builder
+                        .index("seller")
                         .query(matchQuery)
         );
-        SearchResponse<BusinessDto> seller = searchService.searchDocument("seller", query, BusinessDto.class);
-        BusinessDto businessDto = mapResponse(seller).get(0);
-        return businessDto == null ? ResponseDto.failure(null) : ResponseDto.success(businessDto, "Success");
+        SearchResponse<EsBusinessDto> seller = searchService.searchDocument("seller", query, EsBusinessDto.class);
+        EsBusinessDto businessDto = mapResponse(seller).stream().findFirst().orElse(null);
+        return ResponseDto.success(businessDto, "Success");
     }
 
     @Override
@@ -85,9 +88,10 @@ public class SearchServiceImpl implements FoodSearchService {
                 SearchUtils.distinctCuisineQuery(),
                 BusinessDto.class
         );
-        BucketMetricValueAggregate bucketMetricValueAggregate = seller.aggregations().get(GeneralStringConstants.DISTINCT_CUISINES).bucketMetricValue();
-        if (!bucketMetricValueAggregate.keys().isEmpty()) {
-            cuisines = bucketMetricValueAggregate.keys();
+        Buckets<StringTermsBucket> buckets = seller.aggregations().get(GeneralStringConstants.DISTINCT_CUISINES).sterms().buckets();
+
+        if (buckets.isArray()) {
+            cuisines = buckets.array().stream().map(stringTermsBucket -> stringTermsBucket.key().toString()).collect(Collectors.toList());
         }
         return ResponseDto.success(cuisines, "Success");
     }
@@ -99,6 +103,23 @@ public class SearchServiceImpl implements FoodSearchService {
                 .hits()
                 .stream()
                 .map(Hit::source)
+                .collect(Collectors.toList());
+    }
+
+    private List<MenuItemDto> mapMenuResponse(SearchResponse<MenuItemDto> response) {
+        return response
+                .hits()
+                .hits()
+                .stream()
+                .map(Hit::source)
+                .map((MenuItemDto menuItemDto) -> {
+                    String signedUrl;
+                    if (menuItemDto != null && menuItemDto.image() != null) {
+                        signedUrl = s3Service.generatePreSignedUrl(menuItemDto.image());
+                        return new MenuItemDto(menuItemDto, signedUrl);
+                    }
+                    return menuItemDto;
+                })
                 .collect(Collectors.toList());
     }
 }

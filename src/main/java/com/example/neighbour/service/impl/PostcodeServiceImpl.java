@@ -1,10 +1,11 @@
 package com.example.neighbour.service.impl;
 
-import com.example.neighbour.dto.place.PostCodeData;
 import com.example.neighbour.dto.place.PostCodeApiResponse;
+import com.example.neighbour.dto.place.PostCodeData;
 import com.example.neighbour.dto.place.PostCodeResult;
 import com.example.neighbour.service.PostcodeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ public class PostcodeServiceImpl implements PostcodeService {
     String postcodeApiUrl;
 
     @Override
+    @RegisterReflectionForBinding({PostCodeApiResponse.class})
     public PostCodeData getPostCode(String code) {
 
         String postcodeApiUrl1 = postcodeApiUrl + "?q=" + code;

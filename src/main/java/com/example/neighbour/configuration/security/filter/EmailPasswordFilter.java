@@ -4,7 +4,6 @@ import com.example.neighbour.configuration.security.authentication.EmailPassword
 import com.example.neighbour.dto.ResponseDto;
 import com.example.neighbour.utils.ApiConstants;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -66,6 +65,7 @@ public class EmailPasswordFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             log.error("Error occurred while authenticating the user : {}", e.getMessage(), e);
             ResponseDto<String> errorResponse = ResponseDto.failure(e.getMessage());
+            errorResponse.setData("Username or password is incorrect");
             response.setStatus(400);
             response.setHeader("Content-Type", "application/json");
             response.getWriter().write(convertObjectToJson(errorResponse));

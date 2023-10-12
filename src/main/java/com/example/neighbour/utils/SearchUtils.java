@@ -16,6 +16,7 @@ public class SearchUtils {
     public static SearchRequest createQueryForMenu(MenuSearchRequest request) {
         return SearchRequest.of(
                 builder -> builder
+                        .index("menu")
                         .query(
                                 q -> q.bool(
                                         b -> {
@@ -47,7 +48,9 @@ public class SearchUtils {
     public static SearchRequest createQueryForBusinessSearch(SellerSearchRequest request) {
         return SearchRequest.of(
                 builder -> {
-                    builder.query(
+                    builder
+                            .index("seller")
+                            .query(
                                     q -> q.bool(
                                             b -> {
                                                 if (request.search() != null) {
@@ -100,6 +103,7 @@ public class SearchUtils {
     public static SearchRequest distinctCuisineQuery() {
         return SearchRequest.of(
                 builder -> builder
+                        .index("menu")
                         .aggregations(
                                 DISTINCT_CUISINES,
                                 builder1 -> builder1

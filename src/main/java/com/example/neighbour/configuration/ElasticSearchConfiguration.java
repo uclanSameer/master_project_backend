@@ -39,6 +39,14 @@ public class ElasticSearchConfiguration {
                 new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY,
                 new UsernamePasswordCredentials(username, password));
+        if (host.equals("localhost")) {
+            return RestClient.builder(
+                            new HttpHost(host, port, "http"))
+                    .setHttpClientConfigCallback(httpAsyncClientBuilder ->
+                            httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialsProvider)
+                    )
+                    .build();
+        }
         return RestClient.builder(
                         new HttpHost(host, port, "https"))
                 .setDefaultHeaders(new Header[]{
