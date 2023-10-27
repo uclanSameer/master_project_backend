@@ -36,6 +36,12 @@ public class SearchUtils {
                                                        matchQuery("isFeatured", request.isFeatured().toString())
                                                 );
                                             }
+
+                                            if (request.ids() != null) {
+                                                b.must(
+                                                        termQuery("id", request.ids())
+                                                );
+                                            }
                                             return b;
                                         }
                                 )

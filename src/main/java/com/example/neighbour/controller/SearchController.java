@@ -23,7 +23,7 @@ public class SearchController {
 
     @PostMapping("/menu/all")
     public Object allMenu(@RequestBody Pagination search) {
-        return searchService.searchMenu(new MenuSearchRequest(search, null, null, null));
+        return searchService.searchMenu(new MenuSearchRequest(search, null, null, null, null));
     }
 
     @PostMapping("/chef")
